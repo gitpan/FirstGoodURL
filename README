@@ -1,0 +1,52 @@
+NAME
+    FirstGoodURL - determines first successful URL in list
+
+SYNOPSIS
+      use FirstGoodURL;
+      use strict;
+
+      my @URLs = (...);
+      my $match;
+
+      if ($match = FirstGoodURL->in(@URLs)) {
+        print "good URL: $match\n";
+      }
+      else {
+        print "no URL was alive\n";
+      }
+
+      if ($match = FirstGoodURL->with('image/png')->in(@URLs)) {
+        print "PNG found at $match\n";
+      }
+      else {
+        print "no PNG found\n";
+      }
+
+DESCRIPTION
+    This module uses the LWP suite to scan through a list of URLs.
+    It returns the first URL that returns a `200 Ok' status. In
+    addition, you can specify a Content-type that the URL must
+    return.
+
+Methods
+    * `FirstGoodURL-'in(...)>
+        Scans a list of URLs for a 200 response code, and possibly a
+        requisite Content-type (see the `with' method below)
+
+    * `FirstGoodURL-'with(...)>
+        Sets a Content-type for the next (successful) call to `in'.
+        You can send a single string, a list of strings, or a
+        compiled regex (using `qr//'). If a match is returned from
+        the call to `in', the Content-type is forgotten; if there is
+        no match found, the Content-type is remembered. This method
+        returns the class name, so that you can daisy-chain calls
+        for readability:
+
+          my $match = FirstGoodURL->with(qr/image/)->in(@URLs);
+
+AUTHOR
+      Jeff "japhy" Pinyan
+      CPAN ID: PINYAN
+      japhy@pobox.com
+      http://www.pobox.com/~japhy/
+

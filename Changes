@@ -1,5 +1,8 @@
 Revision history for Perl extension FirstGoodURL.
 
+1.11  Mon Jan 29 22:30:00 2001
+	- test.pl corrupted in tar
+	- bad copy of FirstGoodURL.pm
 1.10  Mon Jan 29 14:00:00 2001
 	- changed with() (NOT b/c)
 	- doc patch

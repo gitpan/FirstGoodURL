@@ -1,6 +1,6 @@
 package FirstGoodURL;
 
-$VERSION = '1.10';
+$VERSION = '1.11';
 
 use LWP::UserAgent;
 use Carp;
@@ -35,14 +35,14 @@ sub in {
     my $req = $ua->request(HTTP::Request->new(HEAD => $_));
     my ($rc,$rt) = ($req->code, $req->content_type);
 
-    if (not keys %$ctype) { $match = $_ and last $_ if $status->{$rc} }
+    if (not keys %$ctype) { $match = $_ and last if $status->{$rc} }
     else { next if not $status->{$rc} }
 
     if (keys %$ctype == 1 and my($regex) = (each %$ctype)[1]) {
-      $match = $_ and last if $r_ct =~ $regex;
+      $match = $_ and last if $rt =~ $regex;
     }
 
-    else { for (keys %$ctype) { $match = $_ and if $ctype->{$r_ct} } }
+    else { for (keys %$ctype) { $match = $_ and last if $ctype->{$rt} } }
   }
 
   $status = { 200 => 1 };

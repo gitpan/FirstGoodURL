@@ -34,4 +34,5 @@ print "ok 3\n";
 print "not " if $URLs[1] ne FirstGoodURL->with(qr/html/)->in(@URLs);
 print "ok 4\n";
 
-print "not " if $URLs[0] ne FirstGoodURL->with(
+print "not " if $URLs[0] ne FirstGoodURL->with(404)->in(@URLs);
+print "ok 5\n";
